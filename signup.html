@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Signup - Student E-Index</title>
+    <link href="assets/css/styles.css" rel="stylesheet" />
+    <link href="assets/css/design-system.css" rel="stylesheet" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card card">
+      <div class="auth-brand" aria-hidden="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3.5 3.5 7.5 12 11.5 20.5 7.5 12 3.5Z"></path>
+          <path d="M6.5 9.2v4.3c0 1.1 2.5 2.6 5.5 2.6s5.5-1.5 5.5-2.6V9.2"></path>
+          <path d="M12 11.5v8"></path>
+          <path d="M8 19.5h8"></path>
+        </svg>
+      </div>
+      <div class="card-header"><h1>Create Teacher Account</h1><p>One account per email address.</p></div>
+      <div class="card-body">
+        <div id="authMessage" class="auth-message" role="alert"></div>
+        <form id="signupForm" novalidate>
+          <div class="form-row" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div class="form-group"><label for="firstName">First Name</label><input class="form-control" id="firstName" name="firstName" required maxlength="50" autocomplete="given-name" /></div>
+            <div class="form-group"><label for="lastName">Last Name</label><input class="form-control" id="lastName" name="lastName" required maxlength="50" autocomplete="family-name" /></div>
+          </div>
+          <div class="form-group"><label for="staffId">Staff ID</label><input class="form-control" id="staffId" name="staffId" required maxlength="50" autocomplete="off" /></div>
+          <div class="form-group">
+            <label>Subjects</label>
+            <div id="subjectRows">
+              <div class="subject-row">
+                <select class="form-select subject-choice" required>
+                  <option value="">Select a subject</option>
+                  <option value="Comp 111">Comp 111 - Introduction to Computing</option>
+                  <option value="Comp 112">Comp 112 - Computer Programming 1</option>
+                  <option value="IT 111">IT 111 - Discrete Mathematics</option>
+                  <option value="IT 121">IT 121 - Fundamentals of Database Systems</option>
+                  <option value="Comp 121">Comp 121 - Computer Programming 2</option>
+                  <option value="Comp 122">Comp 122 - Data Structures and Algorithm</option>
+                  <option value="IT 211">IT 211 - Integrative Programming and Technologies</option>
+                  <option value="IT 212">IT 212 - Fundamentals of Human Computer Interaction</option>
+                  <option value="Comp 211">Comp 211 - Information Management</option>
+                  <option value="Comp 212">Comp 212 - Object Oriented Programming</option>
+                  <option value="IT 221">IT 221 - Fundamentals of Systems Integration and Architecture</option>
+                  <option value="IT 222">IT 222 - Fundamentals of Information Assurance and Security</option>
+                  <option value="IT 223">IT 223 - Systems Administration and Maintenance</option>
+                  <option value="Comp 221">Comp 221 - Application Development and Emerging Technologies</option>
+                </select>
+                <select class="form-select year-choice" required>
+                  <option value="">Year level</option>
+                  <option value="1st Year">1st Year</option>
+                  <option value="2nd Year">2nd Year</option>
+                  <option value="3rd Year">3rd Year</option>
+                  <option value="4th Year">4th Year</option>
+                </select>
+                <button class="btn btn-light remove-subject" type="button" aria-label="Remove subject">×</button>
+              </div>
+            </div>
+            <button class="btn btn-light" id="addSubjectBtn" type="button">+ Add Another Subject</button>
+            <div class="error-message">Please select a subject and year level</div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"></path><path d="m5 7 7 5 7-5"></path></svg>
+              <input class="form-control" id="email" name="email" type="email" required maxlength="100" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7.8A4 4 0 1 1 16 7.8V10"></path></svg>
+              <input class="form-control" id="password" name="password" type="password" required minlength="8" autocomplete="new-password" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <div class="input-with-icon">
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7.8A4 4 0 1 1 16 7.8V10"></path></svg>
+              <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" required minlength="8" autocomplete="new-password" />
+            </div>
+          </div>
+          <div class="form-group terms-group"><label for="termsAccepted"><input id="termsAccepted" name="termsAccepted" type="checkbox" value="true" required /> <span>I agree to the <a href="/terms">Terms of Service</a> and <a href="/acceptable-use">Acceptable Use Policy</a></span></label></div>
+          <button class="btn btn-primary full-width" type="submit">Create Account</button>
+        </form>
+        <p class="auth-link">Already registered? <a href="login.html">Log in</a></p>
+      </div>
+    </main>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script>
+      const subjectOptions = [
+        ['Comp 111', 'Comp 111 - Introduction to Computing'],
+        ['Comp 112', 'Comp 112 - Computer Programming 1'],
+        ['IT 111', 'IT 111 - Discrete Mathematics'],
+        ['IT 121', 'IT 121 - Fundamentals of Database Systems'],
+        ['Comp 121', 'Comp 121 - Computer Programming 2'],
+        ['Comp 122', 'Comp 122 - Data Structures and Algorithm'],
+        ['IT 211', 'IT 211 - Integrative Programming and Technologies'],
+        ['IT 212', 'IT 212 - Fundamentals of Human Computer Interaction'],
+        ['Comp 211', 'Comp 211 - Information Management'],
+        ['Comp 212', 'Comp 212 - Object Oriented Programming'],
+        ['IT 221', 'IT 221 - Fundamentals of Systems Integration and Architecture'],
+        ['IT 222', 'IT 222 - Fundamentals of Information Assurance and Security'],
+        ['IT 223', 'IT 223 - Systems Administration and Maintenance'],
+        ['Comp 221', 'Comp 221 - Application Development and Emerging Technologies']
+      ];
+      const yearOptions = ['1st Year', '2nd Year', '3rd Year', '4th Year'];
+      const subjectRows = document.getElementById('subjectRows');
+
+      function updateRemoveButtons() {
+        const rows = subjectRows.querySelectorAll('.subject-row');
+        rows.forEach(row => {
+          const removeButton = row.querySelector('.remove-subject');
+          removeButton.hidden = rows.length === 1;
+          removeButton.disabled = rows.length === 1;
+        });
+      }
+
+      function createSubjectRow() {
+        const row = document.createElement('div');
+        row.className = 'subject-row';
+        row.innerHTML = `<select class="form-select subject-choice" required><option value="">Select a subject</option>${subjectOptions.map(([value, label]) => `<option value="${value}">${label}</option>`).join('')}</select><select class="form-select year-choice" required><option value="">Year level</option>${yearOptions.map(year => `<option value="${year}">${year}</option>`).join('')}</select><button class="btn btn-light remove-subject" type="button" aria-label="Remove subject">×</button>`;
+        row.querySelector('.remove-subject').addEventListener('click', () => {
+          row.remove();
+          updateRemoveButtons();
+        });
+        return row;
+      }
+
+      document.querySelector('.remove-subject').hidden = true;
+      document.querySelector('.remove-subject').disabled = true;
+      document.getElementById('addSubjectBtn').addEventListener('click', () => {
+        subjectRows.appendChild(createSubjectRow());
+        updateRemoveButtons();
+      });
+
+      document.getElementById('signupForm').addEventListener('submit', async event => {
+        event.preventDefault();
+        const form = new FormData(event.currentTarget);
+        const rows = [...subjectRows.querySelectorAll('.subject-row')];
+        const subjects = rows.map(row => ({
+          subject: row.querySelector('.subject-choice').value,
+          yearLevel: row.querySelector('.year-choice').value
+        }));
+        const message = document.getElementById('authMessage');
+        const showError = text => {
+          message.textContent = text;
+          message.className = 'auth-message is-visible';
+        };
+
+        if (!form.get('firstName')) {
+          showError('Please enter your first name');
+          return;
+        }
+        if (!form.get('lastName')) {
+          showError('Please enter your last name');
+          return;
+        }
+        if (!subjects.length || subjects.some(item => !item.subject || !item.yearLevel)) {
+          showError('Please complete at least one subject and year level.');
+          return;
+        }
+        if (!form.get('staffId')) {
+          showError('Staff ID is required.');
+          return;
+        }
+        if (!form.get('termsAccepted')) {
+          showError('You must agree to the Terms of Service and Privacy Policy.');
+          return;
+        }
+        if (form.get('password') !== form.get('confirmPassword')) {
+          showError('Passwords do not match.');
+          return;
+        }
+        if (String(form.get('password')).length < 8) {
+          showError('Password must be at least 8 characters.');
+          return;
+        }
+
+        try {
+          await window.auth.request('/auth/signup', {
+            method: 'POST',
+            body: JSON.stringify({
+              firstName: form.get('firstName'),
+              lastName: form.get('lastName'),
+              staffId: form.get('staffId'),
+              email: form.get('email'),
+              password: form.get('password'),
+              termsAccepted: true,
+              subjects
+            })
+          });
+          window.location.replace('login.html');
+        } catch (error) {
+          showError(error.message);
+        }
+      });
+    </script>
+  </body>
+</html>
