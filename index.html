@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student E-Index</title>
+    <!-- Custom CSS -->
+    <link href="assets/css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="grid">
+        <!-- Students Table Section -->
+        <div class="main-content">
+          <div class="card students-management-card">
+            <div class="teacher-profile-section">
+              <a class="teacher-profile" href="profile.html" aria-label="Open teacher profile">
+                <span class="teacher-avatar" aria-hidden="true">👤</span>
+                <span id="teacherProfileName">Profile</span>
+              </a>
+            </div>
+
+            <div class="students-management-header">
+              <h3>Students Management</h3>
+              <button class="btn btn-primary" id="addStudentBtn" type="button">Add Student</button>
+            </div>
+
+            <div class="students-table-section">
+              <div class="filter-controls">
+                <div class="filter-group filter-group-mobile students-filter-row">
+                  <div class="search-container form-control">
+                    <img src="assets/icons/search.svg" alt="Search" width="16" height="16">
+                    <input
+                      type="text"
+                      class="search-input"
+                      id="searchInput"
+                      placeholder="Search"
+                      autocomplete="off"
+                    />
+                  </div>
+                  <div class="filter-group">
+                    <select id="teacherSubjectFilter" class="form-select subject-filter" required aria-label="Filter by subject">
+                      <option value="">Select subject · year</option>
+                    </select>
+                    <select id="sectionFilter" class="form-select">
+                      <option value="">All Sections</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="table-container">
+                <table id="studentsTable" class="table">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>NAME</th>
+                      <th>YEAR</th>
+                      <th>SECTION</th>
+                      <th class="text-right">ACTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Table data will be loaded dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="students-logout-footer">
+              <button class="btn btn-light" id="logoutBtn" type="button">Log Out</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- RFID Scanner Section -->
+        <div class="scanner-content">
+          <div class="card scanner-card">
+            <div class="card-header">
+              <h5>Student Records</h5>
+            </div>
+            <div class="card-body">
+              <div class="scanner-input-group">
+                <label class="scan-input-wrap" for="rfidInput">
+                  <svg class="scan-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M5 8.5A6.5 6.5 0 0 1 18.5 8.5" />
+                    <path d="M7 11.5A4.5 4.5 0 0 1 16.5 11.5" />
+                    <path d="M9 14.5A2.5 2.5 0 0 1 14.5 14.5" />
+                    <circle cx="12" cy="17.5" r="1.2" />
+                  </svg>
+                  <input
+                    type="text"
+                    class="form-control scan-input"
+                    id="rfidInput"
+                    placeholder="Scan RFID for student records"
+                    autofocus
+                    autocomplete="off"
+                  />
+                </label>
+                <div class="scan-status" aria-live="polite">
+                  <span class="scan-status-dot"></span>
+                  Listening for card scan
+                </div>
+                <div id="searchResult" class="search-result hidden">
+                  <div class="student-info">
+                    <!-- Student info will be loaded here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Attendance Scanner Section -->
+          <div class="scanner-content attendance-scanner-content">
+            <div class="card scanner-card">
+              <div class="card-header">
+                <h5>Attendance</h5>
+              </div>
+              <div class="card-body">
+                <div class="scanner-input-group">
+                  <label class="scan-input-wrap" for="attendanceRfidInput">
+                    <svg class="scan-input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 8.5A6.5 6.5 0 0 1 18.5 8.5" />
+                      <path d="M7 11.5A4.5 4.5 0 0 1 16.5 11.5" />
+                      <path d="M9 14.5A2.5 2.5 0 0 1 14.5 14.5" />
+                      <circle cx="12" cy="17.5" r="1.2" />
+                    </svg>
+                    <input
+                      type="text"
+                      class="form-control scan-input"
+                      id="attendanceRfidInput"
+                      placeholder="Scan RFID for attendance"
+                      autofocus
+                      autocomplete="off"
+                    />
+                  </label>
+                  <div class="scan-status" aria-live="polite">
+                    <span class="scan-status-dot"></span>
+                    Listening for card scan
+                  </div>
+                  <div id="attendanceSearchResult" class="search-result hidden">
+                    <div class="student-info">
+                      <!-- Student info will be loaded here -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="illustration-container">
+            <img src="assets/images/student.svg" alt="Illustration" width="100%" height="100%">
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Student Modal -->
+    <div class="modal" id="addStudentModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>Add New Student</h5>
+          <button type="button" class="close-btn" id="closeModalBtn"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addStudentForm">
+            <div class="form-group">
+              <label>Student ID</label>
+              <input
+                type="text"
+                class="form-control"
+                id="studentId"
+                name="studentId"
+                placeholder="00-0000"
+                required
+                pattern="[0-9]{2}-[0-9]{4}"
+                autocomplete="off"
+              />
+              <div class="error-message">Please enter a valid student ID (format: 00-0000)</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="firstName"
+                  required
+                  autocomplete="off"
+                />
+                <div class="error-message">Please enter a first name</div>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="lastName"
+                  required
+                  autocomplete="off"
+                />
+                <div class="error-message">Please enter a last name</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>RFID Tag</label>
+              <input
+                type="text"
+                class="form-control"
+                id="rfidTag"
+                name="rfidTag"
+                required
+                autocomplete="off"
+              />
+              <div class="error-message">Please enter an RFID tag</div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Year</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="year"
+                  name="year"
+                  min="1"
+                  max="5"
+                  required
+                  autocomplete="off"
+                />
+                <div class="error-message">Please enter a valid year (1-5)</div>
+              </div>
+              <div class="form-group">
+                <label>Section</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="section"
+                  name="section"
+                  required
+                  autocomplete="off"
+                />
+                <div class="error-message">Please enter a section</div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" id="cancelBtn">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" id="saveStudentBtn">
+            Save Student
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Direct Attendance Modal -->
+    <div class="modal" id="directAttendanceModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5>Record Attendance</h5>
+          <button type="button" class="close-btn" id="closeAttendanceModalBtn"></button>
+        </div>
+        <div class="modal-body">
+          <form id="directAttendanceForm" novalidate>
+            <div class="form-group">
+              <label>Subject</label>
+              <select class="form-select" name="attendance_subject" required>
+                <option value="IT223">IT223</option>
+                <option value="IT221">IT221</option>
+              </select>
+              <div class="error-message">Please select a subject</div>
+            </div>
+            <div class="form-group">
+              <label>Date</label>
+              <input type="date" class="form-control" name="date" required />
+              <div class="error-message">Please select a date</div>
+            </div>
+            <div class="form-group">
+              <label>Time</label>
+              <input type="time" class="form-control" name="time" required />
+              <div class="error-message">Please select a time</div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" id="cancelAttendanceBtn">
+            Cancel
+          </button>
+          <button type="button" class="btn btn-primary" id="saveAttendanceBtn">
+            Save Attendance
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Custom JS -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>
